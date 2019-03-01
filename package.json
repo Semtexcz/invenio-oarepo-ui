@@ -1,0 +1,9 @@
+{
+  "name": "invenio-oarepo-ui",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "vue-to-js": "^0.9.4"
+  }
+}
