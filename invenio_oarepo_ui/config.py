@@ -7,3 +7,4 @@
 
 """OARepo UI module for invenio"""
 
+INVENIO_OAREPO_UI_LOGIN_URL = '/login'

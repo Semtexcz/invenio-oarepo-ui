@@ -9,13 +9,18 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, current_app, jsonify, request, session
+import os
+from urllib.parse import urlencode
+
+from flask import Blueprint, current_app, jsonify, session, url_for, request
+from flask import render_template
 from flask_login import current_user
 
 blueprint = Blueprint(
     'invenio_oarepo_ui',
     __name__,
-    url_prefix='/oarepo/1.0'
+    url_prefix='/oarepo/1.0',
+    template_folder=os.path.join(os.path.dirname(__file__), 'templates')
 )
 
 
@@ -33,7 +38,7 @@ def collections():
     return jsonify(collections)
 
 
-@blueprint.route('/auth/status')
+@blueprint.route('/auth/state')
 def login_status():
     if current_user.is_anonymous:
         resp = {
@@ -58,3 +63,30 @@ def login_status():
         }
 
     return jsonify(resp)
+
+
+@blueprint.route('/auth/login')
+def perform_login():
+    print(request.headers)
+    login_complete_url = current_app.config['INVENIO_OAREPO_UI_LOGIN_URL'] or '/login'
+    nextparam = urlencode({
+        'next': url_for('invenio_oarepo_ui.login_complete')
+    })
+    if '?' in login_complete_url:
+        login_complete_url += '&' + nextparam
+    else:
+        login_complete_url += '?' + nextparam
+    resp = render_template('login.html', complete=login_complete_url)
+    return current_app.response_class(
+        resp,
+        status=302,
+        mimetype='text/html',
+        headers={
+            'Location': login_complete_url,
+        }
+    )
+
+
+@blueprint.route('/auth/complete')
+def login_complete():
+    return render_template('login_complete.html')
