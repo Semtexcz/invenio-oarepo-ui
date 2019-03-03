@@ -3,6 +3,10 @@
 Login has been successful, redirecting to application.
 </body>
 <script>
-  window.opener.postMessage('openid-login-finished');
+  if (window.opener) {
+    window.opener.postMessage('popup-login-finished');
+  } else {
+    parent.postMessage('popup-login-finished');
+  }
 </script>
 </html>

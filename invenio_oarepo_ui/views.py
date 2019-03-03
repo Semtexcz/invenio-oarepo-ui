@@ -67,7 +67,6 @@ def login_status():
 
 @blueprint.route('/auth/login')
 def perform_login():
-    print(request.headers)
     login_complete_url = current_app.config['INVENIO_OAREPO_UI_LOGIN_URL'] or '/login'
     nextparam = urlencode({
         'next': url_for('invenio_oarepo_ui.login_complete')
