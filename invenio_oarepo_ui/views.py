@@ -87,6 +87,18 @@ def perform_login():
     )
 
 
+@blueprint.route('/auth/logout')
+def perform_logout():
+    return current_app.response_class(
+        '',
+        status=302,
+        mimetype='text/html',
+        headers={
+            'Location': '/logout/',
+        }
+    )
+
+
 @blueprint.route('/auth/complete')
 def login_complete():
     return render_template('login_complete.html')
