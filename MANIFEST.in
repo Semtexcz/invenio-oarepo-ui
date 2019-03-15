@@ -17,4 +17,4 @@ include .dockerignore
 include .editorconfig
 include .tx/config
 prune docs/_build
-recursive-include invenio_oarepo_ui/translations *.po *.pot *.mo
+recursive-include invenio_oarepo_ui/translations *.po *.pot *.mo *.html
