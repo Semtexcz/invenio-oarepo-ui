@@ -12,7 +12,6 @@ import os
 from setuptools import find_packages, setup
 
 readme = open('README.rst').read()
-history = open('CHANGES.rst').read()
 
 tests_require = [
     'check-manifest>=0.25',
@@ -57,7 +56,7 @@ setup(
     name='invenio-oarepo-ui',
     version=version,
     description=__doc__,
-    long_description=readme + '\n\n' + history,
+    long_description=readme,
     keywords='invenio TODO',
     license='MIT',
     author='CESNET',
