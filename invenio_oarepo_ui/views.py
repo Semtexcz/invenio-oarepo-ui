@@ -41,11 +41,13 @@ def collections():
 
 @blueprint.route('/auth/state')
 def login_status():
+    refresh()
     if current_user.is_anonymous:
         resp = {
             'logged_in': False,
             'user': None,
-            'user_info': None
+            'user_info': None,
+            'language': get_locale().language
         }
     else:
         resp = {
@@ -60,7 +62,8 @@ def login_status():
                     } for x in current_user.roles
                 ]
             },
-            'user_info': session.get('user_info', None).to_dict()
+            'user_info': session.get('user_info', None).to_dict(),
+            'language': get_locale().language
         }
 
     return jsonify(resp)
