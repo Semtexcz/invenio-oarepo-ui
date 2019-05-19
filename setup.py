@@ -70,6 +70,9 @@ setup(
         'invenio_base.apps': [
             'invenio_oarepo_ui = invenio_oarepo_ui:OARepoUI',
         ],
+        'invenio_base.api_apps': [
+            'invenio_oarepo_ui = invenio_oarepo_ui:OARepoUI',
+        ],
         'invenio_base.api_blueprints': [
             'invenio_oarepo_ui = invenio_oarepo_ui.views:blueprint',
         ],

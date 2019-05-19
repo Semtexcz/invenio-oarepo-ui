@@ -9,7 +9,8 @@
 
 from __future__ import absolute_import, print_function
 
-from flask_babelex import gettext as _
+from flask import g, request
+from flask_babelex import Babel
 
 from . import config
 
@@ -26,6 +27,18 @@ class OARepoUI(object):
         """Flask application initialization."""
         self.init_config(app)
         app.extensions['invenio-oarepo-ui'] = self
+
+        def get_locale():
+            current_lang = request.cookies.get('language')
+            if current_lang:
+                return current_lang
+            user = getattr(g, 'user', None)
+            if user is not None:
+                return user.locale
+            return request.accept_languages.best_match(['cs', 'en'])
+
+        self.babelex = Babel(app)
+        self.babelex.localeselector(get_locale)
 
     def init_config(self, app):
         """Initialize configuration."""

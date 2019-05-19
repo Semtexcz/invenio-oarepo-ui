@@ -12,8 +12,9 @@ from __future__ import absolute_import, print_function
 import os
 from urllib.parse import urlencode
 
-from flask import Blueprint, current_app, jsonify, session, url_for, request
+from flask import Blueprint, current_app, jsonify, session, url_for
 from flask import render_template
+from flask_babelex import refresh, get_locale
 from flask_login import current_user
 
 blueprint = Blueprint(
@@ -101,3 +102,15 @@ def perform_logout():
 @blueprint.route('/auth/complete')
 def login_complete():
     return render_template('login_complete.html')
+
+
+@blueprint.route('/lang')
+def get_set_lang():
+    refresh()
+    current_locale = get_locale()
+    resp = jsonify({
+        'language': current_locale.language,
+        'variant': current_locale.variant,
+    })
+    resp.set_cookie('language', current_locale.language)
+    return resp
