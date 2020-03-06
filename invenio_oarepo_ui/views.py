@@ -20,7 +20,7 @@ from flask_login import current_user
 blueprint = Blueprint(
     'invenio_oarepo_ui',
     __name__,
-    url_prefix='1.0/oarepo',
+    url_prefix='/1.0/oarepo',
     template_folder=os.path.join(os.path.dirname(__file__), 'templates')
 )
 
