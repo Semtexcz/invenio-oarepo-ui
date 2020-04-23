@@ -25,7 +25,7 @@ blueprint = Blueprint(
 )
 
 
-@blueprint.route("/collections")
+@blueprint.route("/collections/")
 def collections():
     # get all record rest endpoints and present them as collections
     collections = current_app.config.get('INVENIO_OAREPO_UI_COLLECTIONS', {})
@@ -39,7 +39,7 @@ def collections():
     return jsonify(collections)
 
 
-@blueprint.route('/auth/state')
+@blueprint.route('/auth/state/')
 def login_status():
     refresh()
     if current_user.is_anonymous:
@@ -69,7 +69,7 @@ def login_status():
     return jsonify(resp)
 
 
-@blueprint.route('/auth/login')
+@blueprint.route('/auth/login/')
 def perform_login():
     login_complete_url = current_app.config['INVENIO_OAREPO_UI_LOGIN_URL'] or '/login'
     nextparam = urlencode({
@@ -90,7 +90,7 @@ def perform_login():
     )
 
 
-@blueprint.route('/auth/logout')
+@blueprint.route('/auth/logout/')
 def perform_logout():
     return current_app.response_class(
         '',
@@ -102,12 +102,12 @@ def perform_logout():
     )
 
 
-@blueprint.route('/auth/complete')
+@blueprint.route('/auth/complete/')
 def login_complete():
     return render_template('login_complete.html')
 
 
-@blueprint.route('/lang')
+@blueprint.route('/lang/')
 def get_set_lang():
     refresh()
     current_locale = get_locale()
