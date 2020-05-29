@@ -62,7 +62,8 @@ def login_status():
                     } for x in current_user.roles
                 ]
             },
-            'user_info': session.get('user_info', None).to_dict(),
+            'user_info': session.get('user_info', None).to_dict() if session.get('user_info',
+                                                                                 None) else None,
             'language': get_locale().language
         }
 
